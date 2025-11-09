@@ -1,0 +1,14 @@
+{
+  "name": "vijayaba-school",
+  "version": "1.0.0",
+  "description": "Vijayaba School website - single HTML file",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "SENUZ",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
