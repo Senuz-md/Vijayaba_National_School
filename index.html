@@ -57,7 +57,7 @@ header.sitebar{
 .intro-logo img{width:100%;height:100%;object-fit:cover}
 .intro-text{font-weight:800;font-size:20px;margin-bottom:14px}
 .progress{height:12px;background:rgba(255,255,255,0.12);border-radius:999px;overflow:hidden}
-.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#34d399,#10b981);transition:width .18s linear}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#343399,#690981);transition:width .18s linear}
 
 /* main content wrapper (soft side padding) */
 main{max-width:1200px;margin:0 auto;padding:18px}
@@ -184,7 +184,9 @@ footer.sitefoot{width:100%;padding:18px 12px;background:linear-gradient(180deg,r
     <section class="hero" aria-label="Hero">
       <div class="hero-left">
         <div class="headline">VIJAYABA — where learners become leaders</div>
-        <div class="sub">✨ VIJAYABA NATIONAL SCHOOL, situated in Hungama is one of the magnificent schools in Sri Lanka. With the 86 years long period of history. It has been able to gain many achievements of excellence both in the academic and non academic fields. VIJAYABA NATIONAL SCHOOL provides education to students from Grade 1 to 13 in Sinhala & English Mediums with motto of " විද්‍යා දදාති විනයං"🎓🫂.</div>
+        <div class="sub">📚 94 years of excellence in academics & beyond!
+Grades 1️⃣–1️⃣3️⃣ | Sinhala & English Medium
+💡 “විද්‍යා දදාති විනයං ✨".</div>
 
         <div class="stats" role="region" aria-label="School statistics">
           <div class="stat"><div class="label">Grades</div><div class="value">🎓1 – 13</div></div>
@@ -228,12 +230,30 @@ footer.sitefoot{width:100%;padding:18px 12px;background:linear-gradient(180deg,r
       </div>
     </section>
 
-    <section class="details" style="margin-top:18px">
-      <h3 style="margin:0 0 8px 0">📞 Contact Us</h3>
-      <div class="row"><div class="label">✉️ Email</div><div><a href="mailto:vijayabanationalschool@gmail.com">vijayabanationalschool@gmail.com</a></div></div>
-      <div class="row"><div class="label">📲 Phone</div><div><strong>+94 47 2226036</strong></div></div>
-    </section>
-  </main>
+   <section class="details" style="margin-top:18px">
+  <h3 style="margin:0 0 8px 0">📞 Contact Us</h3>
+
+  <div class="row">
+    <div class="label">✉️ Email</div>
+    <div><a href="mailto:vijayabanationalschool@gmail.com">vijayabanationalschool@gmail.com</a></div>
+  </div>
+
+  <div class="row">
+    <div class="label">📲 Phone</div>
+    <div><strong>0472226036</strong></div>
+  </div>
+
+  <!-- Facebook row -->
+  <div class="row">
+    <div class="label">🔵 Facebook</div>
+    <div>
+      <a href="https://www.facebook.com/share/17gnKg34j9/" target="_blank" rel="noopener noreferrer">
+        Click Here 🚀
+      </a>
+    </div>
+  </div>
+</section>
+</main>
 
   <!-- footer -->
   <footer class="sitefoot" role="contentinfo">
@@ -260,15 +280,17 @@ footer.sitefoot{width:100%;padding:18px 12px;background:linear-gradient(180deg,r
 
   <!-- audio control -->
   <div id="audioControl" class="audio-control" title="Pause/Play">⏯</div>
-  <audio id="bgm" src="https://files.catbox.moe/hfxrts.mp3" loop preload="auto"></audio>
+  <audio id="bgm" src="https://files.catbox.moe/j1fj0z.mp3" loop preload="auto"></audio>
 
 <script>
 /* ====== Data ====== */
 // sample media: replace with your catbox links
 const MEDIA = [
-  { title: "✨ Sudhakshinabimana", caption: "සුදක්ශිණාභිමාණා|දකුණු සිප්කෙත රන් අස්වැන්නක අභිමන් ඇගයුම - 2025", media: ["https://files.catbox.moe/w18fik.jpg"], type: "image" },
-  { title: "⚾Volleyball Sports Meet 2025", caption: "Rupawahini", media: ["https://files.catbox.moe/qpmfhq.mp4"], type: "video" },
-  { title: "🫅Teachers Day 2025", caption: "Sing 🤡", media: ["https://files.catbox.moe/xd4j4n.mp4"], type: "image" },
+  { title: "Volleyball Grand Finale ⚾ | November 16 | Sugathadasa", caption: "DSI SUPER SPORT", media: ["https://files.catbox.moe/3ywrv3.mp4"], type: "video" },
+   { title: "Volleyball Grand Finale ⚾", caption: "DSI SUPER SPORT", media: ["https://files.catbox.moe/q4jc18.mp4"], type: "video" },
+  { title: "✨ Sudhakshinabisheka", caption: "සුදක්ශිණාභිශේක|දකුණු සිප්කෙත රන් අස්වැන්නක අභිමන් ඇගයුම - 2025", media: ["https://files.catbox.moe/w18fik.jpg"], type: "image" },
+  { title: "⚾ Volleyball Sports Meet 2025", caption: "Rupawahini", media: ["https://files.catbox.moe/qpmfhq.mp4"], type: "video" },
+  { title: "🥎 Vijayaba Won A ODI Hat Trick", caption: "🏆Dilshan Madhushanka(Sl vs Zim August)", media: ["https://files.catbox.moe/1o5tud.mp4"], type: "video" },
 ];
 
 /* basic setup */
@@ -358,4 +380,4 @@ audioControl.addEventListener('click', ()=>{ if(bgm.paused){ bgm.play(); audioCo
 setTimeout(()=>{ const i=document.getElementById('intro'); if(i && i.parentNode) i.parentNode.removeChild(i); },12000);
 </script>
 </body>
-  </html>
+</html>
