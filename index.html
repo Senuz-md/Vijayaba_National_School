@@ -2,386 +2,525 @@
 <html lang="si">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>VIJAYABA N.S. HUNGAMA — Official</title>
 
 <!-- Google search console Verification -->
 <meta name="google-site-verification" content="L9JZ_BZBFHEkVzMgw6LhnXJyh9Bfa0tORGAK1EbA0FY" />
-  
+
 <link rel="icon" href="https://files.catbox.moe/5vmpv6.jpg" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f8fafc; --card:#ffffff; --muted:#6b7280; --accent:#059669;
-  --glass:rgba(255,255,255,0.86); --radius:14px; --shadow:0 14px 40px rgba(2,6,23,0.08);
-  --text:#0f172a;
+  --bg:#050b14; /* Darker bg for contrast */
+  --panel:#071226; 
+  --muted:#94a3b8; 
+  --accent:#38bdf8; /* Bright Cyan */
+  --accent-glow: rgba(56, 189, 248, 0.4);
+  --glass:rgba(255,255,255,0.03);
+  --card-border: rgba(255,255,255,0.08);
+  --radius:20px; 
+  font-family:'Inter', system-ui, 'Poppins', Roboto, Arial;
 }
-[data-theme='dark']{ --bg:#061026; --card:#071726; --muted:#9aa6b2; --accent:#34d399; --text:#e6eef6; --glass:rgba(8,10,14,0.6); }
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
+html,body{margin:0;padding:0;height:100%;background:var(--bg);color:#e6eef6;overflow-x:hidden; scroll-behavior: smooth;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1200px;margin:0 auto;padding:16px; transition: filter 0.3s ease; position: relative; z-index: 2;}
 
-/* SHIFT RIGHT on wide screens (user requested) */
-@media(min-width:900px){
-  body{transform:translateX(3%);transition:transform .3s ease}
+/* --- TRENDING ANIMATIONS --- */
+
+/* 1. Bouncy Scroll Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy effect */
+    filter: blur(4px);
 }
-@media(max-width:899px){
-  body{transform:none}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
 }
 
-/* Header - full width background, inner centered content */
-header.sitebar{
-  width:100%; padding:12px 0; position:sticky; top:0; z-index:1200;
-  background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,255,255,0.92));
-  box-shadow:0 8px 30px rgba(2,6,23,0.04);
+/* 2. Neon Hover Glow for Cards */
+.card-hover-effect {
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
 }
-[data-theme='dark'] header.sitebar{background:linear-gradient(180deg,rgba(6,10,14,0.95),rgba(6,10,14,0.9))}
-.header-inner{max-width:1200px;margin:0 auto;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;gap:12px;align-items:center}
-.logo-small{width:56px;height:56px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
-.logo-small img{width:100%;height:100%;object-fit:cover}
-.brand h1{font-size:18px;margin:0}
-.brand p{margin:0;font-size:12px;color:var(--muted)}
+.card-hover-effect::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    transform: skewX(-25deg); transition: 0.5s; pointer-events: none;
+}
+.card-hover-effect:hover::before { left: 100%; }
+.card-hover-effect:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px var(--accent-glow), 0 0 20px rgba(56, 189, 248, 0.2) inset;
+    border-color: var(--accent);
+}
 
-/* top actions */
-.top-actions{display:flex;align-items:center;gap:10px}
-.theme-toggle{padding:8px;border-radius:10px;background:var(--card);cursor:pointer;border:1px solid rgba(0,0,0,0.04)}
-.menu-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--card);box-shadow:var(--shadow)}
-.menu-icon .lines{display:flex;flex-direction:column;gap:4px}
-.menu-icon .lines span{width:18px;height:2px;background:var(--text);border-radius:3px;display:block}
-  
-/* dropdown menu */
-.menu-panel{position:fixed;right:18px;top:70px;background:var(--card);padding:8px;border-radius:10px;box-shadow:var(--shadow);display:none;flex-direction:column;gap:6px;z-index:1300}
-.menu-panel a{padding:8px 12px;border-radius:8px;font-weight:700;color:var(--text);display:block}
-.menu-panel a:hover{background:rgba(0,0,0,0.04)}
+/* 3. Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, #fff 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-/* intro */
-#intro{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#071226 0%, #021020 100%);z-index:10000;flex-direction:column;color:white}
-.intro-card{width:86%;max-width:620px;text-align:center;padding:28px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))}
-.intro-logo{width:160px;height:160px;border-radius:14px;overflow:hidden;margin:0 auto 14px}
-.intro-logo img{width:100%;height:100%;object-fit:cover}
-.intro-text{font-weight:800;font-size:20px;margin-bottom:14px}
-.progress{height:12px;background:rgba(255,255,255,0.12);border-radius:999px;overflow:hidden}
-.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#343399,#690981);transition:width .18s linear}
+/* --- BASE STYLES --- */
+#loader{position:fixed;inset:0;background:#020617;display:flex;align-items:center;justify-content:center;z-index:2000;flex-direction:column;color:var(--accent);font-weight:800;font-size:18px;transition:opacity 0.6s;}
+#loader.fade{opacity:0;pointer-events:none;}
 
-/* main content wrapper (soft side padding) */
-main{max-width:1200px;margin:0 auto;padding:18px}
-@media(max-width:480px){ main{padding:12px} }
+#creatorTab{position:fixed;bottom:16px;right:16px;background:rgba(0,0,0,0.6);padding:8px 12px;border-radius:12px;font-size:12px;color:#fff;z-index:1500;backdrop-filter:blur(10px);border:1px solid var(--card-border); cursor:pointer; transition: transform 0.3s ease;}
+#creatorTab:hover{transform: scale(1.1) rotate(-2deg); border-color: var(--accent);}
 
-/* hero */
-.hero{display:flex;gap:18px;align-items:start;flex-wrap:wrap;margin-top:6px}
-.hero-left{flex:1;min-width:260px}
-.headline{font-size:30px;line-height:1.02;font-weight:800;margin:0}
-.sub{color:var(--muted);margin-top:10px;max-width:60ch}
+header{padding-top: 8px;} 
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.logo-small{width:62px;height:62px;border-radius:50%;overflow:hidden;background:linear-gradient(145deg,#0b2034,#122a3f);display:flex;align-items:center;justify-content:center;border:2px solid var(--card-border); transition: 0.5s;}
+.logo-small:hover{box-shadow: 0 0 20px var(--accent); border-color: #fff;}
+.logo-small img{width:100%;height:100%;object-fit:cover;}
+.brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:0.6px;}
 
-/* stats */
-.stats{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
-.stat{background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow);min-width:120px}
-.stat .label{font-size:12px;color:var(--muted)}
-.stat .value{font-weight:800}
+/* Sticky Nav */
+.nav-wrapper { display: flex; justify-content: center; width: 100%; position: sticky; top: 14px; z-index: 100; padding: 0 10px; }
+.nav {
+  display: flex; gap: 8px; padding: 6px 10px; border-radius: 50px;
+  backdrop-filter: blur(16px); background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.nav a {
+  padding: 10px 20px; border-radius: 40px; font-weight: 600; font-size: 14px; color: var(--muted);
+  transition: all 0.3s ease; position: relative;
+}
+.nav a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav a.active {
+  background: var(--accent); color: #000; font-weight: 800;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
 
-/* floating hero (right) */
-.floating{width:320px;border-radius:14px;padding:12px;background:linear-gradient(180deg,var(--card),#f7fafb);box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;gap:10px}
-@media(max-width:980px){ .floating{width:100%} }
-.floating .logo{width:160px;height:160px;border-radius:12px;overflow:hidden}
-.floating .logo img{width:100%;height:100%;object-fit:cover;animation:spin3d 20s linear infinite}
-@keyframes spin3d{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+/* Cards & Layout */
+.hero-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start;}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr;}}
 
-/* details */
-.details{margin-top:18px;background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow)}
-.details .row{display:flex;gap:12px;align-items:flex-start;padding:6px 0}
-.details .label{min-width:110px;font-weight:700;color:var(--muted)}
+.card{
+    background: rgba(13, 22, 41, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius:var(--radius); padding:24px;
+    border:1px solid var(--card-border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
 
-/* map */
-.map{margin-top:12px;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
+.headline{font-size:32px;line-height:1.1;font-weight:900;margin:0;color:#fff;}
+.stats{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;}
+.stat{background:rgba(255,255,255,0.03);padding:12px 16px;border-radius:14px;min-width:100px;border:1px solid rgba(255,255,255,0.05); text-align: center; transition: 0.3s;}
+.stat:hover{background: var(--accent); color: #000; transform: translateY(-5px);}
+.stat div:first-child{font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;}
+.stat div:last-child{font-size: 18px; font-weight: 800;}
 
-/* media grid */
-.media-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
-@media(max-width:900px){ .media-grid{grid-template-columns:1fr} }
-.media-card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}<script>
-  // Get elements
-  const creatorBtn = document.getElementById("creatorBtn");
-  const creatorPopup = document.getElementById("creatorPopup");
-  const closeCreator = document.getElementById("closeCreator");
+/* Floating 3D Logo */
+.floating{width:100%;max-width:320px;border-radius:24px;padding:20px;background:linear-gradient(135deg,#0f172a,#1e293b);box-shadow:0 30px 80px rgba(0,0,0,0.5);transform-style:preserve-3d;perspective:1000px;cursor:grab; border: 1px solid rgba(255,255,255,0.1);}
+.floating .logo{width:200px;height:200px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.1); margin: 0 auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5);}
+.floating .logo img{width:100%;height:100%;object-fit:cover;transform:translateZ(50px);transition:transform .5s ease;}
 
-  // When user clicks Creator tab
-  creatorBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    creatorPopup.style.display = "flex";
-  });
+/* --- MEDIA GRID (UPDATED) --- */
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:16px;margin-top:16px;}
 
-  // When user clicks close button
-  closeCreator.addEventListener("click", () => {
-    creatorPopup.style.display = "none";
-  });
+.media-card{
+    position: relative; overflow:hidden; border-radius:16px;
+    border:1px solid rgba(255,255,255,0.05);
+    background:#000;
+    height:260px; display:flex; flex-direction:column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.media-card:hover{
+    transform: scale(1.03);
+    box-shadow: 0 10px 40px rgba(56, 189, 248, 0.3);
+    border-color: var(--accent);
+    z-index: 10;
+}
 
-  // Optional: click outside to close
-  window.addEventListener("click", (e) => {
-    if (e.target === creatorPopup) {
-      creatorPopup.style.display = "none";
-    }
-  });
-</script>
-.media-card video,.media-card img{width:100%;height:420px;object-fit:cover;background:#000}
-@media(max-width:700px){ .media-card video,.media-card img{height:220px} }
-.media-caption{padding:12px;color:var(--muted)}
+/* Video Styling */
+.media-card video {
+    width: 100%; height: 100%; object-fit: cover;
+    outline: none;
+}
 
-/* viewer fullscreen */
-#viewer{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1400;align-items:center;justify-content:center;padding:14px}
-#viewer .inner{position:relative;max-width:1200px;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-#viewer img,#viewer video{max-width:100%;max-height:100%;border-radius:8px}
-#viewer .close{position:absolute;right:12px;top:12px;background:rgba(255,255,255,0.06);color:white;border:none;padding:8px;border-radius:8px;cursor:pointer}
+/* Image Styling */
+.media-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    cursor: zoom-in;
+    transition: opacity 0.3s;
+}
+.media-card:hover img { opacity: 0.9; }
 
-/* footer */
-footer.sitefoot{width:100%;padding:18px 12px;background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,255,255,0.95));text-align:center;margin-top:22px}
-[data-theme='dark'] footer.sitefoot{background:linear-gradient(180deg,rgba(6,10,14,0.94),rgba(6,10,14,0.9))}
+.media-caption{
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 12px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.9), transparent);
+    color: #fff; font-weight:600; font-size:13px;
+    pointer-events: none; /* Let clicks pass through to video controls */
+}
 
-/* creator popup */
-.creator-popup{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:1500}
-.creator-box{background:var(--card);padding:22px;border-radius:14px;max-width:420px;width:92%;text-align:center;box-shadow:var(--shadow)}
-.creator-box h3{margin:0 0 8px 0}
-.wa-btn{display:inline-block;margin-top:10px;padding:10px 14px;border-radius:10px;background:#25D366;color:white;font-weight:800;text-decoration:none}
+/* --- LIGHTBOX (FULLSCREEN IMAGE) --- */
+#lightbox {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+    z-index: 5000; display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px);
+    opacity: 0; transition: opacity 0.3s ease;
+}
+#lightbox.active { display: flex; opacity: 1; }
+#lightbox img {
+    max-width: 90%; max-height: 90vh; border-radius: 8px;
+    box-shadow: 0 0 50px rgba(56, 189, 248, 0.2);
+    transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#lightbox.active img { transform: scale(1); }
+#lightbox-close {
+    position: absolute; top: 20px; right: 20px;
+    color: #fff; font-size: 40px; cursor: pointer; background: none; border: none;
+}
 
-/* audio control */
-.audio-control{position:fixed;right:14px;bottom:14px;width:56px;height:56px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 36px rgba(2,6,23,0.12);cursor:pointer;z-index:1500}
+/* Page Transitions */
+section{margin-top:16px;}
+.page{display:none;}
+.page.visible{display:block;}
+
+/* Background Blobs */
+.bg-shape{
+    position:fixed; width:500px; height:500px; border-radius:50%;
+    filter:blur(100px); opacity:0.2; pointer-events:none; z-index: 0;
+}
+.blob-1 { top:-100px; right:-100px; background: #3b82f6; animation: float 10s infinite alternate; }
+.blob-2 { bottom:-100px; left:-100px; background: #8b5cf6; animation: float 14s infinite alternate-reverse; }
+@keyframes float { 0% {transform: translate(0,0);} 100% {transform: translate(40px, 40px);} }
+
+/* Buttons */
+.btn{
+    padding:12px 20px; border-radius:12px; border:none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff; font-weight:700; cursor:pointer;
+    transition: 0.3s; position: relative; overflow: hidden;
+}
+.btn::after {
+    content:''; position: absolute; inset:0; 
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%); transition: 0.5s;
+}
+.btn:hover::after { transform: translateX(100%); }
+.btn:hover {
+    background: var(--accent); color: #000;
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+/* Mobile Nav */
+body.blur-active .container { filter: blur(8px); transform: scale(0.98); }
+.mobile-nav-toggle { display: none; font-size: 28px; background: none; border: none; color: #fff; cursor: pointer; }
+.sidenav {
+    height: 100%; width: 100%; position: fixed; inset: 0; background: rgba(5, 11, 20, 0.95); backdrop-filter: blur(20px);
+    z-index: 4000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+    opacity: 0; pointer-events: none; transition: 0.4s ease;
+}
+.sidenav.open { opacity: 1; pointer-events: all; }
+.sidenav a { font-size: 24px; font-weight: 800; color: #fff; opacity: 0.6; transition: 0.3s; }
+.sidenav a:hover { opacity: 1; color: var(--accent); transform: scale(1.1); }
+.sidenav .closebtn { position: absolute; top: 30px; right: 30px; font-size: 40px; color: #fff; border: none; background: none; cursor: pointer;}
+
+@media(max-width:980px) {
+    .nav { display: none !important; }
+    .mobile-nav-toggle { display: block; }
+    .nav-wrapper { display: none; }
+}
 </style>
 </head>
-<body data-theme="light">
+<body>
 
-  <!-- INTRO -->
-  <div id="intro" role="status" aria-live="polite">
-    <div class="intro-card">
-      <div class="intro-logo"><img src="https://files.catbox.moe/5vmpv6.jpg" alt="VNS logo"></div>
-      <div class="intro-text">Loading Vijayaba N.S. — Hungama...</div>
-      <div class="progress" style="margin-top:14px"><div id="introBar" class="progress-bar"></div></div>
+<div id="lightbox">
+    <button id="lightbox-close">×</button>
+    <img id="lightbox-img" src="" alt="Full view">
+</div>
+
+<div id="loader">
+  <div style="font-size: 40px; margin-bottom: 10px;">⚝</div>
+  <div>LOADING VIJAYABA...</div>
+</div>
+
+<div id="creatorTab" onclick="document.querySelector('[data-target=\'creator\']').click();">By Seneth ⚝</div>
+
+<div class="bg-shape blob-1"></div>
+<div class="bg-shape blob-2"></div>
+
+<div id="mySidenav" class="sidenav">
+  <button class="closebtn" onclick="closeNav()">×</button>
+  <a href="#home" data-target="home" class="nav-link-mobile">Home</a>
+  <a href="#events" data-target="events" class="nav-link-mobile">Events</a>
+  <a href="#gallery" data-target="gallery" class="nav-link-mobile">Gallery</a>
+  <a href="#admissions" data-target="admissions" class="nav-link-mobile">Admissions</a>
+  <a href="#creator" data-target="creator" class="nav-link-mobile">Creator</a>
+  <a href="#contact" data-target="contact" class="nav-link-mobile">Contact</a>
+</div>
+
+<div class="container">
+<header>
+  <div class="header-inner reveal">
+    <div class="brand">
+      <div class="logo-small"><img src="https://files.catbox.moe/5vmpv6.jpg" alt="VNS logo"></div>
+      <div>
+        <h1 class="gradient-text">VIJAYABA N.S.</h1>
+        <p>HUNGAMA — Official</p>
+      </div>
     </div>
+    <button class="mobile-nav-toggle" onclick="openNav()">☰</button>
   </div>
+  <div class="nav-wrapper reveal" style="transition-delay: 0.1s;">
+    <nav class="nav">
+      <a href="#home" data-target="home" class="nav-link active">Home</a>
+      <a href="#events" data-target="events" class="nav-link">Events</a>
+      <a href="#gallery" data-target="gallery" class="nav-link">Gallery</a>
+      <a href="#admissions" data-target="admissions" class="nav-link">Admissions</a>
+      <a href="#creator" data-target="creator" class="nav-link">Creator</a>
+      <a href="#contact" data-target="contact" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- HEADER -->
-  <header class="sitebar" role="banner" aria-label="Main header">
-    <div class="header-inner">
-      <div class="brand" style="margin-left:8px">
-        <div class="logo-small"><img src="https://files.catbox.moe/5vmpv6.jpg" alt="VNS logo"></div>
-        <div>
-          <h1>VIJAYABA N.S. HUNGAMA</h1>
-          <p>Official site — Grades 1 – 13</p>
-        </div>
+<main>
+<section id="home" class="page visible">
+  <div class="hero-grid">
+    <div class="card card-hover-effect reveal" style="transition-delay: 0.2s;">
+      <div style="color:var(--accent); font-weight:700; font-size:12px; margin-bottom:8px;">📚 94 YEARS OF EXCELLENCE</div>
+      <h2 class="headline">Learners become <span class="gradient-text">Leaders</span>.</h2>
+      <p class="sub">Grades 1 – 13 | Sinhala & English Medium — “විද්‍යා දදාති විනයං ✨"</p>
+      <div class="stats">
+        <div class="stat"><div>Grades</div><div>1 – 13</div></div>
+        <div class="stat"><div>Students</div><div>3000+</div></div>
+        <div class="stat"><div>Staff</div><div>150+</div></div>
       </div>
-
-      <div class="top-actions" style="margin-right:8px">
-        <div id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">🌗</div>
-
-        <div id="menuIcon" class="menu-icon" title="Menu" aria-haspopup="true" aria-expanded="false">
-          <div class="lines"><span></span><span></span><span></span></div>
-        </div>
-
-        <nav id="menuPanel" class="menu-panel" aria-hidden="true">
-          <a id="creatorBtn" href="#">🎨 Creator</a>
-          <a id="shareBtn" href="#">🔗 Share</a>
-          <a id="helpBtn" href="#">🛠️ Help</a>
-        </nav>
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn" id="openAdmissions">Apply Now</button>
+        <button class="btn" id="viewGallery" style="background:transparent; border:1px solid rgba(255,255,255,0.2);">Gallery</button>
       </div>
     </div>
-  </header>
-
-  <!-- MAIN -->
-  <main>
-    <section class="hero" aria-label="Hero">
-      <div class="hero-left">
-        <div class="headline">VIJAYABA — where learners become leaders</div>
-        <div class="sub">📚 94 years of excellence in academics & beyond!
-Grades 1️⃣–1️⃣3️⃣ | Sinhala & English Medium
-💡 “විද්‍යා දදාති විනයං ✨".</div>
-
-        <div class="stats" role="region" aria-label="School statistics">
-          <div class="stat"><div class="label">Grades</div><div class="value">🎓1 – 13</div></div>
-          <div class="stat"><div class="label">Students</div><div class="value">👤3000+</div></div>
-          <div class="stat"><div class="label">Events</div><div class="value">🔴Live</div></div>
-        </div>
-
-        <div style="margin-top:12px">
-          <button id="toggleGrades" style="padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:var(--card);cursor:pointer">📊 Show / Hide per-grade counts</button>
-          <div id="gradeBox" class="details" style="display:none;margin-top:10px"></div>
-        </div>
-
-      </div>
-
-      <aside class="floating" aria-hidden="false">
-        <div class="logo" title="VNS logo"><img src="https://files.catbox.moe/5vmpv6.jpg" alt="VNS logo"></div>
-        <div style="font-weight:800;text-align:center">VIJAYABA N.S. HUNGAMA</div>
-        <div style="color:var(--muted);font-size:13px;text-align:center">Move mouse to tilt (desktop). Tap for details.</div>
-      </aside>
-    </section>
-
-    <section class="details" aria-label="About the school">
-      <div style="font-weight:800;margin-bottom:8px">📍 About School</div>
-      <div class="row"><div class="label">🏫 Name</div><div>Vijayaba National School, Hungama</div></div>
-      <div class="row"><div class="label">📬 Address</div><div>Vijayaba National School, Hungama, Sri Lanka, 82120</div></div>
-      <div class="row"><div class="label">🗺️ Province</div><div>Southern Province</div></div>
-      <div class="row"><div class="label">🏙 District / City</div><div>Hambanthota / Hungama</div></div>
-      <div class="row"><div class="label">🔢 Zip</div><div>82120</div></div>
-
-      <div class="map" aria-hidden="false" style="margin-top:12px">
-        <iframe
-          src="https://maps.google.com/maps?q=Vijayaba%20National%20School%20Hungama%2082120&t=&z=15&ie=UTF8&iwloc=&output=embed"
-          width="100%" height="320" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </section>
-
-    <section aria-label="Videos and updates">
-      <h2 style="margin-top:18px;font-size:20px">🎬 Videos & Updates</h2>
-      <div class="media-grid" id="mediaGrid" role="list">
-        <!-- rendered by JS -->
-      </div>
-    </section>
-
-   <section class="details" style="margin-top:18px">
-  <h3 style="margin:0 0 8px 0">📞 Contact Us</h3>
-
-  <div class="row">
-    <div class="label">✉️ Email</div>
-    <div><a href="mailto:vijayabanationalschool@gmail.com">vijayabanationalschool@gmail.com</a></div>
+    <aside class="floating tilt reveal" id="floating" style="transition-delay: 0.4s;">
+      <div class="logo"><img src="https://files.catbox.moe/5vmpv6.jpg" alt="VNS logo"></div>
+      <div style="margin-top:15px;font-weight:800;text-align:center; font-size: 20px;">VIJAYABA N.S.</div>
+      <div style="color:var(--muted);font-size:12px;text-align:center;margin-top:6px">Hungama</div>
+    </aside>
   </div>
+</section>
 
-  <div class="row">
-    <div class="label">📲 Phone</div>
-    <div><strong>0472226036</strong></div>
+<section id="events" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">📅 Upcoming Events</h3>
+    <ul id="eventsList" style="padding-left:20px; line-height:1.8; color:var(--muted);"></ul>
   </div>
+</section>
 
-  <!-- Facebook row -->
-  <div class="row">
-    <div class="label">🔵 Facebook</div>
-    <div>
-      <a href="https://www.facebook.com/share/17gnKg34j9/" target="_blank" rel="noopener noreferrer">
-        Click Here 🚀
-      </a>
+<section id="gallery" class="page">
+  <div class="card reveal" style="background:transparent; border:none; box-shadow:none; padding:0;">
+    <h3 class="gradient-text" style="font-size:28px; margin-bottom:4px;">Media Gallery</h3>
+    <p style="color:var(--muted); margin-bottom:20px;">Videos have full controls. Click images to expand.</p>
+    <div id="galleryGrid" class="media-grid"></div>
+  </div>
+</section>
+
+<section id="admissions" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">📝 Admissions</h3>
+    <p style="color:var(--muted);">Apply online or contact the school office.</p>
+    <div style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.05); border-radius:12px;">
+        <p><strong>Email:</strong> vijayabanationalschool@gmail.com</p>
+        <p><strong>Phone:</strong> 0472226036</p>
+    </div>
+    <div style="margin-top:12px"><button class="btn" id="downloadForm">Download Application (PDF)</button></div>
+  </div>
+</section>
+
+<section id="creator" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">🖋 Creator Info</h3>
+    <p>Designed & Developed by:</p>
+    <p style="font-weight: 800; font-size: 24px; color:#fff;">Senuz ⚝</p>
+    <div style="margin-top:16px">
+        <a href="https://wa.me/94782932976" target="_blank" class="btn" style="background: #25D366; border:none; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);">
+           📲 Chat on Whatsapp
+        </a>
     </div>
   </div>
 </section>
+
+<section id="contact" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">📞 Contact Us</h3>
+    <p style="margin-bottom:12px;">Vijayaba National School, Hungama, 82120</p>
+    <div class="map" style="border-radius:12px; overflow:hidden; border:2px solid var(--card-border);">
+        <iframe 
+            src="https://maps.google.com/maps?q=Vijayaba%20National%20School%20Hungama%2082120&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="320" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+  </div>
+</section>
+
 </main>
 
-  <!-- footer -->
-  <footer class="sitefoot" role="contentinfo">
-    © <span id="yearEl"></span> VIJAYABA N.S. HUNGAMA — All rights reserved
-  </footer>
-
-  <!-- Creator Modal -->
-  <div id="creatorModal" class="creator-popup" style="display:none">
-    <div class="creator-box">
-      <h3>Hey School Web Creator ❤️‍🩹🫶</h3>
-      <p style="color:var(--muted)">Need help editing or uploading media? Chat with the site creator.</p>
-      <a id="waLink" class="wa-btn" href="https://wa.me/94782932976" target="_blank" rel="noreferrer">➫ Chat on WhatsApp</a>
-      <div style="margin-top:12px"><button id="closeCreator" style="padding:8px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent;cursor:pointer">Close</button></div>
-    </div>
-  </div>
-
-  <!-- Viewer -->
-  <div id="viewer" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1600;align-items:center;justify-content:center;padding:14px">
-    <div class="inner" style="position:relative;max-width:1200px;width:100%;height:100%;display:flex;align-items:center;justify-content:center">
-      <button id="viewerClose" style="position:absolute;right:12px;top:12px;background:rgba(255,255,255,0.06);color:white;border:none;padding:8px;border-radius:8px;cursor:pointer">✕</button>
-      <div id="viewerContent"></div>
-    </div>
-  </div>
-
-  <!-- audio control -->
-  <div id="audioControl" class="audio-control" title="Pause/Play">⏯</div>
-  <audio id="bgm" src="https://files.catbox.moe/j1fj0z.mp3" loop preload="auto"></audio>
+<footer class="sitefoot reveal" style="text-align:center; padding:40px; opacity:0.6; font-size:12px;">
+    © <span id="yearEl"></span> VIJAYABA N.S. HUNGAMA <br> All Rights Reserved.
+</footer>
+</div>
 
 <script>
-/* ====== Data ====== */
-// sample media: replace with your catbox links
+/* DATA SOURCE */
 const MEDIA = [
-  { title: "19න් පහළ volleyball බාලිකා ශූරතාවය හුංගම විජයබාවට", caption: "🏆DSI SUPER SPORT", media: ["https://files.catbox.moe/g2vlbv.jpg"], type: "image" },
-  { title: "17න් පහළ volleyball බාලිකා අනුශූරතාවය හුංගම විජයබාවට", caption: "🏆DSI SUPER SPORT", media: ["https://files.catbox.moe/qlz22x.jpg"], type: "image" },
-  { title: "✨ Sudhakshinabisheka", caption: "සුදක්ශිණාභිශේක|දකුණු සිප්කෙත රන් අස්වැන්නක අභිමන් ඇගයුම - 2025", media: ["https://files.catbox.moe/w18fik.jpg"], type: "image" },
-  { title: "⚾ Volleyball Sports Meet 2025", caption: "Rupawahini", media: ["https://files.catbox.moe/qpmfhq.mp4"], type: "video" },
-  { title: "🥎 Vijayaba Won A ODI Hat Trick", caption: "🏆Dilshan Madhushanka(Sl vs Zim August)", media: ["https://files.catbox.moe/1o5tud.mp4"], type: "video" },
+  { title: "DSI Volleyball Final 2025-Winner 🏆 ( Under 19 )", media:["https://files.catbox.moe/g2vlbv.jpg"], type:"image"},
+  { title: "Sudhakshinabisheka", media:["https://files.catbox.moe/w18fik.jpg"], type:"image"},
+  { title: "Volleyball Meeting Highlights", media:["https://files.catbox.moe/qpmfhq.mp4"], type:"video"},
+  { title: "Vijayaba won a Hat Trick 🏆", media:["  https://files.catbox.moe/1o5tud.mp4"], type:"video"},
+  
+];
+const EVENTS = [
+  {date:'2025-?', title:'Not yet'},
+  {date:'2025-?', title:'Not yet'},
 ];
 
-/* basic setup */
 document.getElementById('yearEl').textContent = new Date().getFullYear();
 
-/* intro progress */
-const intro = document.getElementById('intro');
-const introBar = document.getElementById('introBar');
-let p=0;
-const sim = setInterval(()=>{ p += Math.random()*10 + 6; if(p>100) p=100; introBar.style.width = p + '%'; if(p===100){ clearInterval(sim); setTimeout(()=>{ intro.style.opacity='0'; intro.style.pointerEvents='none'; setTimeout(()=>{ intro.remove(); },600); },700); } }, 200);
-/* fallback remove */
-setTimeout(()=>{ if(intro && intro.parentNode) intro.parentNode.remove(); },12000);
+/* --- LOAD & ANIMATE --- */
+window.addEventListener('load', ()=>{ 
+    document.getElementById('loader').classList.add('fade');
+    setTimeout(checkScroll, 100);
+});
 
-/* theme toggle */
-const themeToggle = document.getElementById('themeToggle');
-function setTheme(t){ document.documentElement.setAttribute('data-theme', t); localStorage.setItem('vns_theme', t); }
-const stored = localStorage.getItem('vns_theme') || 'light';
-setTheme(stored);
-themeToggle.addEventListener('click', ()=>{ const cur = document.documentElement.getAttribute('data-theme')==='dark' ? 'dark' : 'light'; setTheme(cur==='dark' ? 'light' : 'dark'); });
+/* --- NAVIGATION SYSTEM --- */
+function openNav() {
+  document.getElementById("mySidenav").classList.add('open');
+  document.body.classList.add('blur-active');
+}
+function closeNav() {
+  document.getElementById("mySidenav").classList.remove('open');
+  document.body.classList.remove('blur-active');
+}
 
-/* menu dropdown */
-const menuIcon = document.getElementById('menuIcon');
-const menuPanel = document.getElementById('menuPanel');
-menuIcon.addEventListener('click', (e)=>{ e.stopPropagation(); menuPanel.style.display = menuPanel.style.display === 'flex' ? 'none' : 'flex'; menuPanel.style.flexDirection='column'; menuIcon.setAttribute('aria-expanded', menuPanel.style.display === 'flex'); });
-document.addEventListener('click', ()=> menuPanel.style.display='none');
+function switchTab(target) {
+    // 1. Fade out current
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+    
+    // 2. Activate new tab
+    const targetEl = document.getElementById(target);
+    targetEl.classList.add('visible');
+    
+    // 3. Update Nav UI
+    document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+    const dLink = document.querySelector(`.nav-link[data-target="${target}"]`);
+    if(dLink) dLink.classList.add('active');
+    
+    // 4. Reset Scroll & Re-trigger Animations
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+        targetEl.querySelectorAll('.reveal').forEach(el => {
+            el.classList.remove('active');
+            void el.offsetWidth; // Force reflow
+            el.classList.add('active');
+        });
+    }, 50);
+}
 
-/* menu actions */
-document.getElementById('creatorBtn').addEventListener('click', (e)=>{ e.preventDefault(); menuPanel.style.display='none'; document.getElementById('creatorModal').style.display='flex'; });
-document.getElementById('shareBtn').addEventListener('click', (e)=>{ e.preventDefault(); menuPanel.style.display='none'; navigator.clipboard.writeText(window.location.href).then(()=> alert('Link copied ✅')).catch(()=> prompt('Copy link', window.location.href)); });
-document.getElementById('helpBtn').addEventListener('click', (e)=>{ e.preventDefault(); menuPanel.style.display='none'; const to='vijayabanationalschool@gmail.com', sub=encodeURIComponent('Help with School Website'), body=encodeURIComponent('*Hey School Web creator*\\n\\nPlease assist me...'); window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${sub}&body=${body}`,'_blank'); });
+document.querySelectorAll('a[data-target]').forEach(a=>{
+  a.addEventListener('click',(e)=>{
+    e.preventDefault();
+    switchTab(a.dataset.target);
+    if(a.classList.contains('nav-link-mobile')) closeNav();
+  });
+});
 
-/* close creator modal */
-document.getElementById('closeCreator').addEventListener('click', ()=>{ document.getElementById('creatorModal').style.display='none'; });
+document.getElementById('openAdmissions').onclick = () => switchTab('admissions');
+document.getElementById('viewGallery').onclick = () => switchTab('gallery');
 
-/* grades */
-const G = {1:230,2:240,3:245,4:240,5:245,6:240,7:250,8:250,9:245,10:240,11:230,12:180,13:165};
-const gradeBox = document.getElementById('gradeBox');
-function renderGrades(){ gradeBox.innerHTML=''; for(let i=1;i<=13;i++){ const r=document.createElement('div'); r.style.display='flex'; r.style.justifyContent='space-between'; r.style.padding='6px 0'; r.innerHTML = `<div>🎓 Grade ${i}</div><div>${G[i]||0}</div>`; gradeBox.appendChild(r);} }
-renderGrades();
-document.getElementById('toggleGrades').addEventListener('click', ()=> gradeBox.style.display = gradeBox.style.display === 'block' ? 'none' : 'block');
-
-/* media rendering */
-const mediaGrid = document.getElementById('mediaGrid');
-function renderMedia(){
-  mediaGrid.innerHTML = '';
-  MEDIA.forEach(item=>{
-    const card = document.createElement('article'); card.className='media-card';
-    const src = (item.media && item.media[0]) ? item.media[0] : '';
-    if(item.type === 'video' || /\.mp4|\.webm|\.ogg$/i.test(src)){
-      const v = document.createElement('video'); v.src = src; v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.preload='metadata';
-      v.style.cursor='pointer'; v.addEventListener('click', ()=> openViewer(src));
-      card.appendChild(v);
-    } else {
-      const img = document.createElement('img'); img.src = src || ''; img.alt = item.title || ''; img.style.cursor='pointer';
-      img.addEventListener('click', ()=> openViewer(src)); card.appendChild(img);
+/* --- RENDER MEDIA WITH CONTROLS --- */
+function renderGrid(gridId, data){
+  const grid=document.getElementById(gridId);
+  grid.innerHTML='';
+  data.forEach((it,i)=>{
+    const c=document.createElement('article'); 
+    c.className='media-card reveal'; 
+    c.style.transitionDelay = `${i * 0.15}s`; // Staggered entrance
+    
+    if(it.type==='video'){ 
+        // VIDEO: Enabled native controls
+        const v=document.createElement('video'); 
+        v.src=it.media[0]; 
+        v.controls = true; // Shows Play/Pause/Vol/Seek/Fullscreen
+        v.playsInline = true;
+        v.preload = 'metadata'; // Load preview
+        c.appendChild(v);
+    } else { 
+        // IMAGE: Click to Lightbox
+        const img=document.createElement('img'); 
+        img.src=it.media[0]; 
+        img.loading='lazy'; 
+        img.onclick = () => openLightbox(it.media[0]); // Trigger Lightbox
+        c.appendChild(img);
     }
-    const cap = document.createElement('div'); cap.className='media-caption'; cap.textContent = (item.title || '') + (item.caption ? ' — '+item.caption : '');
-    card.appendChild(cap); mediaGrid.appendChild(card);
+    
+    const cap=document.createElement('div'); 
+    cap.className='media-caption'; 
+    cap.textContent=it.title;
+    c.appendChild(cap); 
+    grid.appendChild(c);
   });
 }
-renderMedia();
+renderGrid('galleryGrid', MEDIA);
 
-/* viewer */
-const viewer = document.getElementById('viewer');
-const viewerContent = document.getElementById('viewerContent') || (()=>{
-  const v=document.createElement('div'); v.id='viewerContent'; document.querySelector('#viewer .inner').appendChild(v); return v;
-})();
-const viewerClose = document.getElementById('viewerClose'); if(viewerClose) viewerClose.addEventListener('click', ()=>{ viewer.style.display='none'; viewerContent.innerHTML=''; });
-function openViewer(url){
-  viewer.style.display='flex'; viewerContent.innerHTML='';
-  const low = String(url).toLowerCase();
-  if(low.endsWith('.mp4')||low.endsWith('.webm')||low.endsWith('.ogg')){
-    const v=document.createElement('video'); v.src=url; v.controls=true; v.autoplay=true; v.playsInline=true; v.style.maxHeight='90vh'; v.style.maxWidth='90vw'; viewerContent.appendChild(v);
-  } else {
-    const img=document.createElement('img'); img.src=url; img.style.maxHeight='90vh'; img.style.maxWidth='90vw'; viewerContent.appendChild(img);
-  }
+/* --- LIGHTBOX LOGIC --- */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+}
+// Close on click background or button
+lightbox.onclick = (e) => {
+    if(e.target !== lightboxImg) lightbox.classList.remove('active');
 }
 
-/* audio */
-const bgm = document.getElementById('bgm'); const audioControl = document.getElementById('audioControl');
-bgm.volume = 0.28; bgm.muted = true; bgm.play().catch(()=>{});
-function enableAudioOnce(){ bgm.muted = false; bgm.play().catch(()=>{}); window.removeEventListener('click', enableAudioOnce); }
-window.addEventListener('click', enableAudioOnce, { once:true });
-audioControl.addEventListener('click', ()=>{ if(bgm.paused){ bgm.play(); audioControl.textContent='⏸' } else { bgm.pause(); audioControl.textContent='⏯' } });
+/* --- SCROLL ANIMATION (OBSERVER) --- */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+}, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-/* safety */
-setTimeout(()=>{ const i=document.getElementById('intro'); if(i && i.parentNode) i.parentNode.removeChild(i); },12000);
+function checkScroll() {
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+/* --- 3D TILT EFFECT --- */
+document.querySelectorAll('.tilt').forEach(el=>{
+  el.addEventListener('mousemove', e=>{
+    const r = el.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width; const py=(e.clientY-r.top)/r.height;
+    const rx=(py-0.5)*15; const ry=(px-0.5)*-15;
+    el.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) translateZ(20px)`;
+  });
+  el.addEventListener('mouseleave', ()=>{ el.style.transform='none'; });
+});
+
+/* EVENTS LIST */
+const evList=document.getElementById('eventsList'); EVENTS.forEach(ev=>{
+  const li=document.createElement('li');
+  li.innerHTML = `<span style="color:#fff; font-weight:bold;">${ev.date}</span> : ${ev.title}`;
+  evList.appendChild(li);
+});
+
+/* DOWNLOAD PLACEHOLDER */
+document.getElementById('downloadForm').onclick = () => alert('Download feature is coming soon!');
+
 </script>
 </body>
-</html>
+  </html>
