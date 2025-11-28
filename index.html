@@ -1,1 +1,527 @@
+<!doctype html>
+<html lang="si">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VIJAYABA N.S. HUNGAMA — Official</title>
 
+<!-- Google search console Verification -->
+<meta name="google-site-verification" content="L9JZ_BZBFHEkVzMgw6LhnXJyh9Bfa0tORGAK1EbA0FY" />
+
+<link rel="icon" href="https://files.catbox.moe/5vmpv6.jpg" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050b14; /* Darker bg for contrast */
+  --panel:#071226; 
+  --muted:#94a3b8; 
+  --accent:#38bdf8; /* Bright Cyan */
+  --accent-glow: rgba(56, 189, 248, 0.4);
+  --glass:rgba(255,255,255,0.03);
+  --card-border: rgba(255,255,255,0.08);
+  --radius:20px; 
+  font-family:'Inter', system-ui, 'Poppins', Roboto, Arial;
+}
+html,body{margin:0;padding:0;height:100%;background:var(--bg);color:#e6eef6;overflow-x:hidden; scroll-behavior: smooth;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1200px;margin:0 auto;padding:16px; transition: filter 0.3s ease; position: relative; z-index: 2;}
+
+/* --- TRENDING ANIMATIONS --- */
+
+/* 1. Bouncy Scroll Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy effect */
+    filter: blur(4px);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* 2. Neon Hover Glow for Cards */
+.card-hover-effect {
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+.card-hover-effect::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    transform: skewX(-25deg); transition: 0.5s; pointer-events: none;
+}
+.card-hover-effect:hover::before { left: 100%; }
+.card-hover-effect:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px var(--accent-glow), 0 0 20px rgba(56, 189, 248, 0.2) inset;
+    border-color: var(--accent);
+}
+
+/* 3. Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, #fff 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- BASE STYLES --- */
+#loader{position:fixed;inset:0;background:#020617;display:flex;align-items:center;justify-content:center;z-index:2000;flex-direction:column;color:var(--accent);font-weight:800;font-size:18px;transition:opacity 0.6s;}
+#loader.fade{opacity:0;pointer-events:none;}
+
+#creatorTab{position:fixed;bottom:16px;right:16px;background:rgba(0,0,0,0.6);padding:8px 12px;border-radius:12px;font-size:12px;color:#fff;z-index:1500;backdrop-filter:blur(10px);border:1px solid var(--card-border); cursor:pointer; transition: transform 0.3s ease;}
+#creatorTab:hover{transform: scale(1.1) rotate(-2deg); border-color: var(--accent);}
+
+header{padding-top: 8px;} 
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.logo-small{width:62px;height:62px;border-radius:50%;overflow:hidden;background:linear-gradient(145deg,#0b2034,#122a3f);display:flex;align-items:center;justify-content:center;border:2px solid var(--card-border); transition: 0.5s;}
+.logo-small:hover{box-shadow: 0 0 20px var(--accent); border-color: #fff;}
+.logo-small img{width:100%;height:100%;object-fit:cover;}
+.brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:0.6px;}
+
+/* Sticky Nav */
+.nav-wrapper { display: flex; justify-content: center; width: 100%; position: sticky; top: 14px; z-index: 100; padding: 0 10px; }
+.nav {
+  display: flex; gap: 8px; padding: 6px 10px; border-radius: 50px;
+  backdrop-filter: blur(16px); background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.nav a {
+  padding: 10px 20px; border-radius: 40px; font-weight: 600; font-size: 14px; color: var(--muted);
+  transition: all 0.3s ease; position: relative;
+}
+.nav a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav a.active {
+  background: var(--accent); color: #000; font-weight: 800;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Cards & Layout */
+.hero-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start;}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr;}}
+
+.card{
+    background: rgba(13, 22, 41, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius:var(--radius); padding:24px;
+    border:1px solid var(--card-border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.headline{font-size:32px;line-height:1.1;font-weight:900;margin:0;color:#fff;}
+.stats{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;}
+.stat{background:rgba(255,255,255,0.03);padding:12px 16px;border-radius:14px;min-width:100px;border:1px solid rgba(255,255,255,0.05); text-align: center; transition: 0.3s;}
+.stat:hover{background: var(--accent); color: #000; transform: translateY(-5px);}
+.stat div:first-child{font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;}
+.stat div:last-child{font-size: 18px; font-weight: 800;}
+
+/* Floating 3D Logo */
+.floating{width:100%;max-width:320px;border-radius:24px;padding:20px;background:linear-gradient(135deg,#0f172a,#1e293b);box-shadow:0 30px 80px rgba(0,0,0,0.5);transform-style:preserve-3d;perspective:1000px;cursor:grab; border: 1px solid rgba(255,255,255,0.1);}
+.floating .logo{width:200px;height:200px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.1); margin: 0 auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5);}
+.floating .logo img{width:100%;height:100%;object-fit:cover;transform:translateZ(50px);transition:transform .5s ease;}
+
+/* --- MEDIA GRID (UPDATED) --- */
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:16px;margin-top:16px;}
+
+.media-card{
+    position: relative; overflow:hidden; border-radius:16px;
+    border:1px solid rgba(255,255,255,0.05);
+    background:#000;
+    height:260px; display:flex; flex-direction:column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.media-card:hover{
+    transform: scale(1.03);
+    box-shadow: 0 10px 40px rgba(56, 189, 248, 0.3);
+    border-color: var(--accent);
+    z-index: 10;
+}
+
+/* Video Styling */
+.media-card video {
+    width: 100%; height: 100%; object-fit: cover;
+    outline: none;
+}
+
+/* Image Styling */
+.media-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    cursor: zoom-in;
+    transition: opacity 0.3s;
+}
+.media-card:hover img { opacity: 0.9; }
+
+.media-caption{
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 12px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.9), transparent);
+    color: #fff; font-weight:600; font-size:13px;
+    pointer-events: none; /* Let clicks pass through to video controls */
+}
+
+/* --- LIGHTBOX (FULLSCREEN IMAGE) --- */
+#lightbox {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+    z-index: 5000; display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px);
+    opacity: 0; transition: opacity 0.3s ease;
+}
+#lightbox.active { display: flex; opacity: 1; }
+#lightbox img {
+    max-width: 90%; max-height: 90vh; border-radius: 8px;
+    box-shadow: 0 0 50px rgba(56, 189, 248, 0.2);
+    transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#lightbox.active img { transform: scale(1); }
+#lightbox-close {
+    position: absolute; top: 20px; right: 20px;
+    color: #fff; font-size: 40px; cursor: pointer; background: none; border: none;
+}
+
+/* Page Transitions */
+section{margin-top:16px;}
+.page{display:none;}
+.page.visible{display:block;}
+
+/* Background Blobs */
+.bg-shape{
+    position:fixed; width:500px; height:500px; border-radius:50%;
+    filter:blur(100px); opacity:0.2; pointer-events:none; z-index: 0;
+}
+.blob-1 { top:-100px; right:-100px; background: #3b82f6; animation: float 10s infinite alternate; }
+.blob-2 { bottom:-100px; left:-100px; background: #8b5cf6; animation: float 14s infinite alternate-reverse; }
+@keyframes float { 0% {transform: translate(0,0);} 100% {transform: translate(40px, 40px);} }
+
+/* Buttons */
+.btn{
+    padding:12px 20px; border-radius:12px; border:none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff; font-weight:700; cursor:pointer;
+    transition: 0.3s; position: relative; overflow: hidden;
+}
+.btn::after {
+    content:''; position: absolute; inset:0; 
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%); transition: 0.5s;
+}
+.btn:hover::after { transform: translateX(100%); }
+.btn:hover {
+    background: var(--accent); color: #000;
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+/* Mobile Nav */
+body.blur-active .container { filter: blur(8px); transform: scale(0.98); }
+.mobile-nav-toggle { display: none; font-size: 28px; background: none; border: none; color: #fff; cursor: pointer; }
+.sidenav {
+    height: 100%; width: 100%; position: fixed; inset: 0; background: rgba(5, 11, 20, 0.95); backdrop-filter: blur(20px);
+    z-index: 4000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+    opacity: 0; pointer-events: none; transition: 0.4s ease;
+}
+.sidenav.open { opacity: 1; pointer-events: all; }
+.sidenav a { font-size: 24px; font-weight: 800; color: #fff; opacity: 0.6; transition: 0.3s; }
+.sidenav a:hover { opacity: 1; color: var(--accent); transform: scale(1.1); }
+.sidenav .closebtn { position: absolute; top: 30px; right: 30px; font-size: 40px; color: #fff; border: none; background: none; cursor: pointer;}
+
+@media(max-width:980px) {
+    .nav { display: none !important; }
+    .mobile-nav-toggle { display: block; }
+    .nav-wrapper { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="lightbox">
+    <button id="lightbox-close">×</button>
+    <img id="lightbox-img" src="" alt="Full view">
+</div>
+
+<div id="loader">
+  <div style="font-size: 40px; margin-bottom: 10px;">⚝</div>
+  <div>LOADING VIJAYABA...</div>
+</div>
+
+<div id="creatorTab" onclick="document.querySelector('[data-target=\'creator\']').click();">By Seneth ⚝</div>
+
+<div class="bg-shape blob-1"></div>
+<div class="bg-shape blob-2"></div>
+
+<div id="mySidenav" class="sidenav">
+  <button class="closebtn" onclick="closeNav()">×</button>
+  <a href="#home" data-target="home" class="nav-link-mobile">Home</a>
+  <a href="#events" data-target="events" class="nav-link-mobile">Events</a>
+  <a href="#gallery" data-target="gallery" class="nav-link-mobile">Gallery</a>
+  <a href="#admissions" data-target="admissions" class="nav-link-mobile">Admissions</a>
+  <a href="#creator" data-target="creator" class="nav-link-mobile">Creator</a>
+  <a href="#contact" data-target="contact" class="nav-link-mobile">Contact</a>
+</div>
+
+<div class="container">
+<header>
+  <div class="header-inner reveal">
+    <div class="brand">
+      <div class="logo-small"><img src="https://files.catbox.moe/5vmpv6.jpg" alt="VNS logo"></div>
+      <div>
+        <h1 class="gradient-text">VIJAYABA N.S.</h1>
+        <p>HUNGAMA — Official</p>
+      </div>
+    </div>
+    <button class="mobile-nav-toggle" onclick="openNav()">☰</button>
+  </div>
+  <div class="nav-wrapper reveal" style="transition-delay: 0.1s;">
+    <nav class="nav">
+      <a href="#home" data-target="home" class="nav-link active">Home</a>
+      <a href="#events" data-target="events" class="nav-link">Events</a>
+      <a href="#gallery" data-target="gallery" class="nav-link">Gallery</a>
+      <a href="#admissions" data-target="admissions" class="nav-link">Admissions</a>
+      <a href="#creator" data-target="creator" class="nav-link">Creator</a>
+      <a href="#contact" data-target="contact" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="home" class="page visible">
+  <div class="hero-grid">
+    <div class="card card-hover-effect reveal" style="transition-delay: 0.2s;">
+      <div style="color:var(--accent); font-weight:700; font-size:12px; margin-bottom:8px;">📚 94 YEARS OF EXCELLENCE</div>
+      <h2 class="headline">Learners become <span class="gradient-text">Leaders</span>.</h2>
+      <p class="sub">Grades 1 – 13 | Sinhala & English Medium — “විද්‍යා දදාති විනයං ✨"</p>
+      <div class="stats">
+        <div class="stat"><div>Grades</div><div>1 – 13</div></div>
+        <div class="stat"><div>Students</div><div>3000+</div></div>
+        <div class="stat"><div>Staff</div><div>150+</div></div>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn" id="openAdmissions">Apply Now</button>
+        <button class="btn" id="viewGallery" style="background:transparent; border:1px solid rgba(255,255,255,0.2);">Gallery</button>
+      </div>
+    </div>
+    <aside class="floating tilt reveal" id="floating" style="transition-delay: 0.4s;">
+      <div class="logo"><img src="https://files.catbox.moe/5vmpv6.jpg" alt="VNS logo"></div>
+      <div style="margin-top:15px;font-weight:800;text-align:center; font-size: 20px;">VIJAYABA N.S.</div>
+      <div style="color:var(--muted);font-size:12px;text-align:center;margin-top:6px">Hungama</div>
+    </aside>
+  </div>
+</section>
+
+<section id="events" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">📅 Upcoming Events</h3>
+    <ul id="eventsList" style="padding-left:20px; line-height:1.8; color:var(--muted);"></ul>
+  </div>
+</section>
+
+<section id="gallery" class="page">
+  <div class="card reveal" style="background:transparent; border:none; box-shadow:none; padding:0;">
+    <h3 class="gradient-text" style="font-size:28px; margin-bottom:4px;">Media Gallery</h3>
+    <p style="color:var(--muted); margin-bottom:20px;">Videos have full controls. Click images to expand.</p>
+    <div id="galleryGrid" class="media-grid"></div>
+  </div>
+</section>
+
+<section id="admissions" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">📝 Admissions</h3>
+    <p style="color:var(--muted);">Apply online or contact the school office.</p>
+    <div style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.05); border-radius:12px;">
+        <p><strong>Email:</strong> vijayabanationalschool@gmail.com</p>
+        <p><strong>Phone:</strong> 0472226036</p>
+    </div>
+    <div style="margin-top:12px"><button class="btn" id="downloadForm">Download Application (PDF)</button></div>
+  </div>
+</section>
+
+<section id="creator" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">🖋 Creator Info</h3>
+    <p>Designed & Developed by:</p>
+    <p style="font-weight: 800; font-size: 24px; color:#fff;">Senuz ⚝</p>
+    <div style="margin-top:16px">
+        <a href="https://wa.me/94782932976" target="_blank" class="btn" style="background: #25D366; border:none; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);">
+           📲 Chat on Whatsapp
+        </a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="page">
+  <div class="card card-hover-effect reveal">
+    <h3 class="gradient-text">📞 Contact Us</h3>
+    <p style="margin-bottom:12px;">Vijayaba National School, Hungama, 82120</p>
+    <div class="map" style="border-radius:12px; overflow:hidden; border:2px solid var(--card-border);">
+        <iframe 
+            src="https://maps.google.com/maps?q=Vijayaba%20National%20School%20Hungama%2082120&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="320" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="sitefoot reveal" style="text-align:center; padding:40px; opacity:0.6; font-size:12px;">
+    © <span id="yearEl"></span> VIJAYABA N.S. HUNGAMA <br> All Rights Reserved.
+</footer>
+</div>
+
+<script>
+/* DATA SOURCE */
+const MEDIA = [
+  { title: "DSI Volleyball Final 2025-Best player 🏆 ( Under 19 )", media:["https://files.catbox.moe/xwilpp.jpg"], type:"image"},
+  { title: "DSI Volleyball Final 2025-Winner 🏆 ( Under 19 )", media:["https://files.catbox.moe/g2vlbv.jpg"], type:"image"},
+  { title: "Sudhakshinabisheka", media:["https://files.catbox.moe/w18fik.jpg"], type:"image"},
+  { title: "Volleyball Meeting Highlights", media:["https://files.catbox.moe/qpmfhq.mp4"], type:"video"},
+  { title: "Vijayaba won a Hat Trick 🏆", media:["  https://files.catbox.moe/1o5tud.mp4"], type:"video"},
+  
+];
+const EVENTS = [
+  {date:'2025-?', title:'Not yet'},
+  {date:'2025-?', title:'Not yet'},
+];
+
+document.getElementById('yearEl').textContent = new Date().getFullYear();
+
+/* --- LOAD & ANIMATE --- */
+window.addEventListener('load', ()=>{ 
+    document.getElementById('loader').classList.add('fade');
+    setTimeout(checkScroll, 100);
+});
+
+/* --- NAVIGATION SYSTEM --- */
+function openNav() {
+  document.getElementById("mySidenav").classList.add('open');
+  document.body.classList.add('blur-active');
+}
+function closeNav() {
+  document.getElementById("mySidenav").classList.remove('open');
+  document.body.classList.remove('blur-active');
+}
+
+function switchTab(target) {
+    // 1. Fade out current
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+    
+    // 2. Activate new tab
+    const targetEl = document.getElementById(target);
+    targetEl.classList.add('visible');
+    
+    // 3. Update Nav UI
+    document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+    const dLink = document.querySelector(`.nav-link[data-target="${target}"]`);
+    if(dLink) dLink.classList.add('active');
+    
+    // 4. Reset Scroll & Re-trigger Animations
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+        targetEl.querySelectorAll('.reveal').forEach(el => {
+            el.classList.remove('active');
+            void el.offsetWidth; // Force reflow
+            el.classList.add('active');
+        });
+    }, 50);
+}
+
+document.querySelectorAll('a[data-target]').forEach(a=>{
+  a.addEventListener('click',(e)=>{
+    e.preventDefault();
+    switchTab(a.dataset.target);
+    if(a.classList.contains('nav-link-mobile')) closeNav();
+  });
+});
+
+document.getElementById('openAdmissions').onclick = () => switchTab('admissions');
+document.getElementById('viewGallery').onclick = () => switchTab('gallery');
+
+/* --- RENDER MEDIA WITH CONTROLS --- */
+function renderGrid(gridId, data){
+  const grid=document.getElementById(gridId);
+  grid.innerHTML='';
+  data.forEach((it,i)=>{
+    const c=document.createElement('article'); 
+    c.className='media-card reveal'; 
+    c.style.transitionDelay = `${i * 0.15}s`; // Staggered entrance
+    
+    if(it.type==='video'){ 
+        // VIDEO: Enabled native controls
+        const v=document.createElement('video'); 
+        v.src=it.media[0]; 
+        v.controls = true; // Shows Play/Pause/Vol/Seek/Fullscreen
+        v.playsInline = true;
+        v.preload = 'metadata'; // Load preview
+        c.appendChild(v);
+    } else { 
+        // IMAGE: Click to Lightbox
+        const img=document.createElement('img'); 
+        img.src=it.media[0]; 
+        img.loading='lazy'; 
+        img.onclick = () => openLightbox(it.media[0]); // Trigger Lightbox
+        c.appendChild(img);
+    }
+    
+    const cap=document.createElement('div'); 
+    cap.className='media-caption'; 
+    cap.textContent=it.title;
+    c.appendChild(cap); 
+    grid.appendChild(c);
+  });
+}
+renderGrid('galleryGrid', MEDIA);
+
+/* --- LIGHTBOX LOGIC --- */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+}
+// Close on click background or button
+lightbox.onclick = (e) => {
+    if(e.target !== lightboxImg) lightbox.classList.remove('active');
+}
+
+/* --- SCROLL ANIMATION (OBSERVER) --- */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+}, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+function checkScroll() {
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+/* --- 3D TILT EFFECT --- */
+document.querySelectorAll('.tilt').forEach(el=>{
+  el.addEventListener('mousemove', e=>{
+    const r = el.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width; const py=(e.clientY-r.top)/r.height;
+    const rx=(py-0.5)*15; const ry=(px-0.5)*-15;
+    el.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) translateZ(20px)`;
+  });
+  el.addEventListener('mouseleave', ()=>{ el.style.transform='none'; });
+});
+
+/* EVENTS LIST */
+const evList=document.getElementById('eventsList'); EVENTS.forEach(ev=>{
+  const li=document.createElement('li');
+  li.innerHTML = `<span style="color:#fff; font-weight:bold;">${ev.date}</span> : ${ev.title}`;
+  evList.appendChild(li);
+});
+
+/* DOWNLOAD PLACEHOLDER */
+document.getElementById('downloadForm').onclick = () => alert('Download feature is coming soon!');
+
+</script>
+</body>
+  </html>
